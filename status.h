@@ -4,8 +4,6 @@
  *
  * Author: Collin Tod
  *
- * TODO: Find a way to condense the accessors and mutators of the psr, or get
- * rid of them entirely
  * TODO: Possibly get idof the abstractions and just use an 8 bit value with a
  * phantom emulation bit.
  */
@@ -46,56 +44,6 @@ struct ProcessorStatusRegister {
 
 // Allocates memory and returns a ptr to a new processor status register. 
 struct ProcessorStatusRegister* newPSR();
-
-// Setting, Clearing, and Getting functions for the negative flag
-void setnegativeFlag(struct ProcessorStatusRegister* psr);
-void clearnegativeFlag(struct ProcessorStatusRegister* psr);
-uint8_t getnegativeFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the overflow flag
-void setoverflowFlag(struct ProcessorStatusRegister* psr);
-void clearoverflowFlag(struct ProcessorStatusRegister* psr);
-uint8_t getoverflowFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the memWidth flag
-void setmemWidthFlag(struct ProcessorStatusRegister* psr);
-void clearmemWidthFlag(struct ProcessorStatusRegister* psr);
-uint8_t getmemWidthFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the idxWidth flag
-void setidxWidthFlag(struct ProcessorStatusRegister* psr);
-void clearidxWidthFlag(struct ProcessorStatusRegister* psr);
-uint8_t getidxWidthFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the deciMode flag
-void setdeciModeFlag(struct ProcessorStatusRegister* psr);
-void cleardeciModeFlag(struct ProcessorStatusRegister* psr);
-uint8_t getdeciModeFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the irqDisabl flag
-void setirqDisableFlag(struct ProcessorStatusRegister* psr);
-void clearirqDisableFlag(struct ProcessorStatusRegister* psr);
-uint8_t getirqDisableFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the zero flag
-void setzeroFlag(struct ProcessorStatusRegister* psr);
-void clearzeroFlag(struct ProcessorStatusRegister* psr);
-uint8_t getzeroFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the carry flag
-void setcarryFlag(struct ProcessorStatusRegister* psr);
-void clearcarryFlag(struct ProcessorStatusRegister* psr);
-uint8_t getcarryFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the emulation flag
-void setemulationFlag(struct ProcessorStatusRegister* psr);
-void clearemulationFlag(struct ProcessorStatusRegister* psr);
-uint8_t getemulationFlag(struct ProcessorStatusRegister* psr);
-
-// Setting, Clearing, and Getting functions for the break_ flag
-void setbreak_Flag(struct ProcessorStatusRegister* psr);
-void clearbreak_Flag(struct ProcessorStatusRegister* psr);
-uint8_t getbreak_Flag(struct ProcessorStatusRegister* psr);
 
 /* 
  * Sets the processor status based on an 8bit number provided & the current 

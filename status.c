@@ -44,229 +44,120 @@ void setProcessorStatus(struct ProcessorStatusRegister* psr, uint8_t value) {
     //TODO condense this entire funtion into a for loop using bitshifting & fxn
     //ptrs
     if (value & CARRY_FLAG) {
-        setcarryFlag(psr);
+        psr->carry = 1;
     }
     else{
-        clearcarryFlag(psr);
+        psr->carry = 0;
     }
 
     if (value & ZERO_FLAG) {
-        setzeroFlag(psr);
+        psr->zero = 1;
     }
     else{
-        clearzeroFlag(psr);
+        psr->zero = 0;
     }
 
     if (value & IRQ_DISABLE_FLAG) {
-        setirqDisableFlag(psr);
+        psr->irqDisable = 1;
     }
     else{
-        clearirqDisableFlag(psr);
+        psr->irqDisable = 0;
     }
 
     if (value & DECIMAL_FLAG) {
-        setdeciModeFlag(psr);
+        psr->deciMode = 1;
     }
     else {
-        cleardeciModeFlag(psr);
+        psr->deciMode = 0;
     }
 
-    if (getemulationFlag(psr)) {
+    if (psr->emulation) {
         // 65816 is in emulation mode, and thus uses the BREAK flag
         if (value & BREAK_FLAG) {
-            setbreak_Flag(psr);
+            psr->break_ = 1;
         }
         else {
-            clearbreak_Flag(psr);
+            psr->break_ = 0;
         }
     }
     else {
         // 65816 is in native mode, and thus uses the IDX_WIDTH flag
         if (value & INDEX_WIDTH_FLAG) {
-            setidxWidthFlag(psr);
+            psr->idxWidth = 1;
         }
         else {
-            clearidxWidthFlag(psr);
+            psr->idxWidth = 0;
         }
     }
 
     // Accumulator/Memory width flag. This is only used in native mode.
-    if (!getemulationFlag(psr) && (value & ACCUMULATOR_WIDTH_FLAG)) {
-        setmemWidthFlag(psr);
+    if (!psr->emulation && (value & ACCUMULATOR_WIDTH_FLAG)) {
+        psr->memWidth = 1;
     }
     else {
-        clearmemWidthFlag(psr);
+        psr->memWidth = 0;
     }
 
     if (value & OVERFLOW_FLAG) {
-        setoverflowFlag(psr);
+        psr->overflow = 1;
     }
     else {
-        clearoverflowFlag(psr);
+        psr->overflow = 0;
     }
 
     if (value & NEGATIVE_FLAG) {
-        setnegativeFlag(psr);
+        psr->negative = 1;
     }
     else {
-        clearnegativeFlag(psr);
+        psr->negative = 0;
     }
 }
 
 
 uint8_t getProcessorStatus(struct ProcessorStatusRegister* psr){
     uint8_t status = 0x00;
-    if (getcarryFlag(psr)) {
+    if (psr->carry) {
         status |= CARRY_FLAG;
     }
 
-    if (getzeroFlag(psr)) {
+    if (psr->zero) {
         status |= ZERO_FLAG;
     }
 
-    if (getirqDisableFlag(psr)) {
+    if (psr->irqDisable) {
         status |= IRQ_DISABLE_FLAG;
     }
 
-    if (getdeciModeFlag(psr)) {
+    if (psr->deciMode) {
         status |= DECIMAL_FLAG;
     }
 
     // TODO make this a switch statement?
-    if (getemulationFlag(psr)) {
+    if (psr->emulation) {
         // 65816 is in emulation mode, using the break flag
-        if (getbreak_Flag(psr)) {
+        if (psr->break_) {
             status |= BREAK_FLAG;
         }
     }
     else {
         // 65816 is in native mode, using the index width flag
-        if (getidxWidthFlag(psr)) {
+        if (psr->idxWidth) {
             status |= INDEX_WIDTH_FLAG;
         }
     }
 
-    if (!getemulationFlag(psr) && getmemWidthFlag(psr)) {
+    if (!psr->emulation && psr->memWidth) {
         status |= ACCUMULATOR_WIDTH_FLAG;
     }
 
-    if (getoverflowFlag(psr)) {
+    if (psr->overflow) {
         status |= OVERFLOW_FLAG;
     }
 
-    if (getnegativeFlag(psr)) {
+    if (psr->negative) {
         status |= NEGATIVE_FLAG;
     }
 
     return status;
 }
 
-// Setting, Clearing, and Getting functions for the negative flag
-void setnegativeFlag(struct ProcessorStatusRegister* psr) {
-    psr->negative = 1;
-}
-void clearnegativeFlag(struct ProcessorStatusRegister* psr){
-    psr->negative = 0;
-}
-uint8_t getnegativeFlag(struct ProcessorStatusRegister* psr){
-    return psr->negative;
-}
-
-// Setting, Clearing, and Getting functions for the overflow flag
-void setoverflowFlag(struct ProcessorStatusRegister* psr) {
-	psr->overflow = 1;
-}
-void clearoverflowFlag(struct ProcessorStatusRegister* psr) {
-	psr->overflow = 0;
-}
-uint8_t getoverflowFlag(struct ProcessorStatusRegister* psr) {
-	return psr->overflow;
-}
-
-// Setting, Clearing, and Getting functions for the memWidth flag
-void setmemWidthFlag(struct ProcessorStatusRegister* psr) {
-	psr->memWidth = 1;
-}
-void clearmemWidthFlag(struct ProcessorStatusRegister* psr) {
-	psr->memWidth = 0;
-}
-uint8_t getmemWidthFlag(struct ProcessorStatusRegister* psr) {
-	return psr->memWidth;
-}
-
-// Setting, Clearing, and Getting functions for the idxWidth flag
-void setidxWidthFlag(struct ProcessorStatusRegister* psr) {
-	psr->idxWidth = 1;
-}
-void clearidxWidthFlag(struct ProcessorStatusRegister* psr) {
-	psr->idxWidth = 0;
-}
-uint8_t getidxWidthFlag(struct ProcessorStatusRegister* psr) {
-	return psr->idxWidth;
-}
-
-// Setting, Clearing, and Getting functions for the deciMode flag
-void setdeciModeFlag(struct ProcessorStatusRegister* psr) {
-	psr->deciMode = 1;
-}
-void cleardeciModeFlag(struct ProcessorStatusRegister* psr) {
-	psr->deciMode = 0;
-}
-uint8_t getdeciModeFlag(struct ProcessorStatusRegister* psr) {
-	return psr->deciMode;
-}
-
-// Setting, Clearing, and Getting functions for the irqDisabl flag
-void setirqDisableFlag(struct ProcessorStatusRegister* psr) {
-	psr->irqDisable = 1;
-}
-void clearirqDisableFlag(struct ProcessorStatusRegister* psr) {
-	psr->irqDisable = 0;
-}
-uint8_t getirqDisableFlag(struct ProcessorStatusRegister* psr) {
-	return psr->irqDisable;
-}
-
-// Setting, Clearing, and Getting functions for the zero flag
-void setzeroFlag(struct ProcessorStatusRegister* psr) {
-	psr->zero = 1;
-}
-void clearzeroFlag(struct ProcessorStatusRegister* psr) {
-	psr->zero = 0;
-}
-uint8_t getzeroFlag(struct ProcessorStatusRegister* psr) {
-	return psr->zero;
-}
-
-// Setting, Clearing, and Getting functions for the carry flag
-void setcarryFlag(struct ProcessorStatusRegister* psr) {
-	psr->carry = 1;
-}
-void clearcarryFlag(struct ProcessorStatusRegister* psr) {
-	psr->carry = 0;
-}
-uint8_t getcarryFlag(struct ProcessorStatusRegister* psr) {
-	return psr->carry;
-}
-
-// Setting, Clearing, and Getting functions for the emulation flag
-void setemulationFlag(struct ProcessorStatusRegister* psr) {
-	psr->emulation = 1;
-}
-void clearemulationFlag(struct ProcessorStatusRegister* psr) {
-	psr->emulation = 0;
-}
-uint8_t getemulationFlag(struct ProcessorStatusRegister* psr) {
-	return psr->emulation;
-}
-
-// Setting, Clearing, and Getting functions for the break_ flag
-void setbreak_Flag(struct ProcessorStatusRegister* psr) {
-	psr->break_ = 1;
-}
-void clearbreak_Flag(struct ProcessorStatusRegister* psr) {
-	psr->break_ = 0;
-}
-uint8_t getbreak_Flag(struct ProcessorStatusRegister* psr) {
-	return psr->break_;
-}

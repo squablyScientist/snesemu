@@ -4,7 +4,7 @@
 
 int main() {
 	struct ProcessorStatusRegister* psr = newPSR();
-	setnegativeFlag(psr);
+	setProcessorStatus(psr, 0x80);
 	printf("0x%x\n", getProcessorStatus(psr));
 	return 0;
 }
