@@ -1,5 +1,10 @@
+CC = gcc
 OBJECTS = cpu.o status.o
-CFLAGS= -pedantic -Wall -Wextra -Werror -ggdb
+TARGET = cpu
+CFLAGS = -pedantic -Wall -Wextra -Werror -ggdb
 
 default: $(OBJECTS)
-	gcc $(OBJECTS) -o cpu $(CFLAGS)
+	$(CC) $(OBJECTS) -o $(TARGET) $(CFLAGS)
+
+clean: 
+	rm $(OBJECTS) $(TARGET)
