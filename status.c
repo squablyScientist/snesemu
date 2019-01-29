@@ -6,6 +6,7 @@
  *
  * TODO: Convert functionality to using an actual 8 bit value rather than an
  * abstraction for efficiency.
+ * TODO: Create function to dump human readable status.
  */
 #include <stdlib.h>
 #include <stdio.h>

@@ -42,6 +42,18 @@ struct Registers {
 	uint16_t PC;
 
 	// The Processor Status Register
-	struct ProcessorStatusRegister P;
+	struct ProcessorStatusRegister* P;
 };
+
+/**
+ * Allocates memory and initiallises the state of the register file
+ */
+struct Registers* initReg();
+
+/**
+ *  Writes a nicely formatted string to the stream given that desribes the
+ *  current state of all the registers of the 65816. This is a debugging tool
+ *  mostly.
+ */
+void dumpRegisters(struct Registers* reg, FILE *stream);
 
