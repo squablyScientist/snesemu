@@ -9,8 +9,8 @@ union Accumulator {
 
 	// TODO: make sure that the endianess lines up ane that this works.
 	struct {
-		uint8_t B;		// The hi byte of the accumulator
 		uint8_t A;		// The lo byte of the accumulator
+		uint8_t B;		// The hi byte of the accumulator
 	} split;
 };
 
