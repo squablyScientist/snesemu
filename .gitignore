@@ -1,5 +1,10 @@
 # Vim swp files
 *.swp
 
-# Generated binary file atm
+# Generated executable file atm
 cpu
+
+# Generated binary files from compilation process
+*.o
+
+
