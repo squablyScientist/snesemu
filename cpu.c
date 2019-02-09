@@ -3,12 +3,6 @@
 #include "cpu.h"
 #include "status.h"
 
-int main() {
-	struct Registers* cpu = initReg();
-	cpu->P->negative = 1;
-	dumpRegisters(cpu, stdout);
-	return 0;
-}
 
 struct Registers* initReg() {
 	struct Registers* new = malloc(sizeof(struct Registers));
