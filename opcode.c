@@ -7,6 +7,9 @@ uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem){
 	// Starts out with an empty addr 
 	uint32_t effectiveAddress = 0;
 
+	// Grab the program counter
+	uint8_t pc = cpu.PC;
+
 	switch(mode){
 
 		/* 
@@ -16,8 +19,22 @@ uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem){
 		 */ 
 		case Absolute:
 			switch(opcode){
+				// Instructions that transfer control addr
+				case 0x4C:	// JMP
+				case 0x20: 	// JSR
+					effectiveAddress = cpu.PBR << 16;
+					break;
 
+				// Instructions that locate data
+				default:
+					effectiveAddress = cpu.DBR << 16;
+					break;
+
+				effectiveAddress |= (mem[pc + 2] << 8);
+				effectiveAddress |= (mem[pc + 1])
 			}
 			break;
 	}
+
+	return effectiveAddress;
 }
