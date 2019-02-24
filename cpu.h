@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "status.h"
 
+#ifndef _CPU_DEF_
+#define _CPU_DEF_
 
 // The accumulator reg, either 1 16bit reg or 2 8bit regs.
 union Accumulator {
@@ -16,7 +18,7 @@ union Accumulator {
 
 
 
-struct Registers {
+typedef struct Registers {
 
 	// The accumulator register
 	union Accumulator acc;
@@ -44,7 +46,7 @@ struct Registers {
 
 	// The Processor Status Register
 	struct ProcessorStatusRegister* P;
-};
+} Registers;
 
 /**
  * Allocates memory and initiallises the state of the register file
@@ -58,3 +60,4 @@ struct Registers* initReg();
  */
 void dumpRegisters(struct Registers* reg, FILE *stream);
 
+#endif
