@@ -1,5 +1,5 @@
 CC = gcc
-OBJECTS = cpu.o status.o main.o instructions.o
+OBJECTS = cpu.o status.o main.o instructions.o opcode.o
 TARGET = cpu
 CFLAGS = -pedantic -Wall -Wextra -Werror -ggdb
 
