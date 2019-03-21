@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "cpu.h"
 #include "instructions.h"
+#include "opcode.h"
 
 int main() {
 	struct Registers* cpu = initReg();

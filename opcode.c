@@ -19,6 +19,7 @@ uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem){
 		 */ 
 		case Absolute:
 			switch(opcode){
+				
 				// Instructions that transfer control addr
 				case 0x4C:	// JMP
 				case 0x20: 	// JSR

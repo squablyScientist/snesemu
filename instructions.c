@@ -1,4 +1,5 @@
 #include "cpu.h"
+#include "opcode.h"
 
 void ADC(struct Registers* cpu, uint8_t* mem) {
 
