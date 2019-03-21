@@ -285,6 +285,9 @@ uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem){
 	// Grab the program counter
 	uint8_t pc = cpu->PC;
 
+	// 16 bit mask for use with register masking for emulation mode
+	uint16_t mask;
+
 	switch(mode){
 
 		/* 
@@ -305,11 +308,62 @@ uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem){
 				default:
 					effectiveAddress = cpu->DBR << 16;
 					break;
-
-				effectiveAddress |= (mem[pc + 2] << 8);
-				effectiveAddress |= (mem[pc + 1]);
 			}
+			
+			// In both cases the next two bytes after opcode are appended.
+			effectiveAddress |= (mem[pc + 2] << 8);
+			effectiveAddress |= (mem[pc + 1]);
 			break;
+
+		/*
+		 * The instruction uses the next 2 bytes after the opcode, appended to 
+		 * the DBR of the CPU, and then added to the contents of the X register.
+		 * Iff the processor is in native mode (processor flag x = 0), then the 
+		 * full 16bit X register is used. O/wise, only the lower 8 bits of the 
+		 * X register are added to the 24bit EA.
+		 */
+		case AbsoluteIndexedWithX:
+			
+			// The data bank register is set as the bank of the EA
+			effectiveAddress = cpu->DBR << 16;
+
+			// The 16 bit operand is switched and appended to the EA
+			effectiveAddress |= (mem[pc + 2] << 8);
+			effectiveAddress |= mem[pc +1];
+
+			// The mask will mask out any bits of X that aren't needed.
+			// if the x flag == 1, mask should be 0xFF. o/wise, it is 0xFFF
+			mask = 0xFFFF >> cpu->P->emulation * 8;
+
+			// Adds the X register to the EA 
+			effectiveAddress += (cpu->X) & mask;
+
+			break;
+		/*
+		 * The instruction uses the next 2 bytes after the opcode, appended to 
+		 * the DBR of the CPU, and then added to the contents of the Y register.
+		 * Iff the processor is in native mode (processor flag x = 0), then the 
+		 * full 16bit Y register is used. O/wise, only the lower 8 bits of the 
+		 * Y register are added to the 24bit EA.
+		 */
+		case AbsoluteIndexedWithY:
+			
+			// The data bank register is set as the bank of the EA
+			effectiveAddress = cpu->DBR << 16;
+
+			// The 16 bit operand is switched and appended to the EA
+			effectiveAddress |= (mem[pc + 2] << 8);
+			effectiveAddress |= mem[pc +1];
+
+			// The mask will mask out any bits of Y that aren't needed.
+			// if the x flag == 1, mask should be 0xFF. o/wise, it is 0xFFF
+			mask = 0xFFFF >> cpu->P->emulation * 8;
+
+			// Adds the Y register to the EA 
+			effectiveAddress += (cpu->Y) & mask;
+
+			break;
+
 		default:
 			exit(1);
 	}
