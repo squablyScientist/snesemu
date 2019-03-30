@@ -19,13 +19,14 @@ int main() {
 	mem[5] = 0x00;
 	mem[6] = 0x00;
 
-	mem[300] = 0x04;
-	mem[301] = 0x00;
+	mem[300] = 0x6D;
+	mem[301] = 0x01;
+	mem[302] = 0x00;
 
 	cpu->PC = 300;
-	cpu->X = 1;
-	cpu->D = 4;
 
-	printf("Should be 0x4: 0x%lX\n", getEffectiveAddress(cpu, 0x15, mem));
+	ADC(cpu, mem);
+	dumpRegisters(cpu, stdout);
+
 	return 0;
 }

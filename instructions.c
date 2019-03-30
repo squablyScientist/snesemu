@@ -3,15 +3,16 @@
 
 void ADC(struct Registers* cpu, uint8_t* mem) {
 
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+
 	// If the accumulator/mem width is 16bit
 	if(cpu -> P -> memWidth == 0) {
+
+		uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
 		uint16_t accumulator = cpu->acc.C;
 
-		// TODO: replace grabbing the operand with a switch case or something
-		// that depnds on the addressing mode of the instruction. Using a lookup
-		// table would be the best way to do this quickly. 
-		uint16_t operand = (mem[(cpu->PBR << 8) | cpu->PC]) | 
-			(mem[(cpu->PBR << 8) | ((cpu->PC)+1)] << 8);
 		//TODO: This must be changed for addressing modes as well
 		cpu->PC += 2;
 		
@@ -61,10 +62,7 @@ void ADC(struct Registers* cpu, uint8_t* mem) {
 	else {
 		uint8_t accumulator = cpu->acc.split.A;
 
-		// TODO: replace grabbing the operand with a switch case or something
-		// that depnds on the addressing mode of the instruction. Using a lookup
-		// table would be the best way to do this quickly. 
-		uint8_t operand = mem[(cpu->PBR << 8) | cpu->PC++];
+		uint8_t operand = mode == Immediate ? (uint8_t)effAddr : mem[effAddr];
 
 		uint8_t carryIn = cpu->P->carry ? 1 : 0;
 
