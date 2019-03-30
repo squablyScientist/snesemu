@@ -20,7 +20,6 @@ enum addrmode {
     DirectPageIndexedIndirectWithX,          
     DirectPageIndirect,              
     DirectPageIndirectLong,          
-    DirectPageIndexedIndirectWithY,          
     DirectPageIndirectIndexedWithY,
     DirectPageIndirectLongIndexedWithY,      
     Immediate,          
@@ -31,11 +30,6 @@ enum addrmode {
     StackDirectPageIndirect,         
     Interrupt,     
     StackProgramCounterRelativeLong,         
-    StackPull,          
-    StackPush,          
-    StackRTI,           
-    StackRTL,           
-    StackRTS,           
     StackRelative,           
     StackRelativeIndirectIndexedWithY     
 };
@@ -51,5 +45,5 @@ extern const enum addrmode modeMap[0x100];
  *      - PC points to byte directly after opcode in memory
  *
  */
-uint32_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem);
+uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem);
 
