@@ -13,28 +13,36 @@ int main() {
 
 	// some data or something
 	mem[0] = 0xEF;
-	mem[1] = 0xCD;
-	mem[2] = 0xAB;
+	mem[1] = 0x34;
+	mem[2] = 0x12;
 	mem[3] = 0x7F;
 	mem[4] = 0x00;
 	mem[5] = 0x00;
 	mem[6] = 0x00;
-	mem[7] = 0xFF;
-	mem[8] = 0xFF;
+	mem[7] = 0x01;
+	mem[8] = 0x00;
 
 	// Text
-	mem[300] = 0x6D;
-	mem[301] = 0x01;
-	mem[302] = 0x00;
-	mem[303] = 0x6D;
-	mem[304] = 0x07;
-	mem[305] = 0x00;
+	mem[0x12C] = 0x3A; // DEC A
+	mem[0x12D] = 0xD0; // BNE 
+	mem[0x12E] = 0xFD; // 	-3
+	mem[0x12F] = 0x6D;
+	mem[0x130] = 0x07;
+	mem[0x131] = 0x00;
+	mem[0x132] = 0xD5;
+	mem[0x133] = 0x01;
+	mem[0x134] = 0x22;
+	mem[0x135] = 0x2C;
+	mem[0x136] = 0x01;
+	mem[0x137] = 0x00;
 	//mem[306] = 0x4C;
 	//mem[307] = 0x32;
 	//mem[308] = 0x01;
 	
 	
-	cpu->PC = 300;
+	cpu->PC = 0x12C;
+	cpu->SP = 0xFFF;
+	cpu->acc.C = 0xF;
 
 	dumpRegisters(cpu, mem, stdout);
 	run(cpu, mem);
@@ -44,6 +52,9 @@ int main() {
 void run(struct Registers *cpu, uint8_t *mem){
 	while(1){
 		instJmpTab[mem[cpu->PC]](cpu, mem);
+		system("clear");
 		dumpRegisters(cpu, mem, stdout);
+		dumpMemory(cpu, mem, 0x0, 0x150, stdout);
+		//getchar();
 	}
 }
