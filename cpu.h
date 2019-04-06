@@ -60,4 +60,7 @@ struct Registers* initReg();
  */
 void dumpRegisters(struct Registers* reg, uint8_t *mem, FILE *stream);
 
+uint32_t getBankedPC(struct Registers* cpu);
+
+void dumpMemory(struct Registers *cpu, uint8_t *mem, uint32_t start, uint32_t end, FILE* stream);
 #endif
