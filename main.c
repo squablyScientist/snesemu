@@ -52,7 +52,7 @@ int main() {
 void run(struct Registers *cpu, uint8_t *mem){
 	while(1){
 		instJmpTab[mem[cpu->PC]](cpu, mem);
-		system("clear");
+		//system("clear");
 		dumpRegisters(cpu, mem, stdout);
 		dumpMemory(cpu, mem, 0x0, 0x150, stdout);
 		//getchar();
