@@ -334,8 +334,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			}
 			
 			// In both cases the next two bytes after opcode are appended.
-			effectiveAddress |= (mem[*pc++]);
-			effectiveAddress |= (mem[*pc++] << 8);
+			effectiveAddress |= (mem[(*pc)++]);
+			effectiveAddress |= (mem[(*pc)++] << 8);
 			break;
 
 		/*
@@ -351,8 +351,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			effectiveAddress = cpu->DBR << 16;
 
 			// The 16 bit operand is switched and appended to the EA
-			effectiveAddress |= mem[*pc++];
-			effectiveAddress |= mem[*pc++] << 8;
+			effectiveAddress |= mem[(*pc)++];
+			effectiveAddress |= mem[(*pc)++] << 8;
 
 			// Adds the X register to the EA 
 			effectiveAddress += (cpu->X) & mask;
@@ -371,8 +371,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			effectiveAddress = cpu->DBR << 16;
 
 			// The 16 bit operand is switched and appended to the EA
-			effectiveAddress |= mem[*pc++];
-			effectiveAddress |= mem[*pc++] << 8;
+			effectiveAddress |= mem[(*pc)++];
+			effectiveAddress |= mem[(*pc)++] << 8;
 
 			// Adds the Y register to the EA 
 			effectiveAddress += (cpu->Y) & mask;
@@ -400,8 +400,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			indirectAddr = cpu->PBR << 16;
 
 			// The 16 bit operand is switched and appended to the indirect addr
-			indirectAddr |= mem[*pc++];
-			indirectAddr |= mem[*pc++] << 8;
+			indirectAddr |= mem[(*pc)++];
+			indirectAddr |= mem[(*pc)++] << 8;
 
 			// Adds the X register to the indirect addr 
 			indirectAddr += (cpu->X) & mask;
@@ -425,8 +425,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			indirectAddr = cpu->PBR << 16;
 
 			// The 16 bit operand is switched and appended to the indirect addr
-			indirectAddr |= mem[*pc++];
-			indirectAddr |= mem[*pc++] << 8;
+			indirectAddr |= mem[(*pc)++];
+			indirectAddr |= mem[(*pc)++] << 8;
 
 			// The 16 bit operand is switched and appended to the EA
 			effectiveAddress |= (mem[indirectAddr + 1] << 8);
@@ -445,8 +445,8 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			// reinitialize.
 
 			// The 16 bit operand is switched and appended to the indirect addr
-			indirectAddr |= mem[*pc++];
-			indirectAddr |= mem[*pc++] << 8;
+			indirectAddr |= mem[(*pc)++];
+			indirectAddr |= mem[(*pc)++] << 8;
 
 			// The 24 bit addr is loaded into the effective address
 			effectiveAddress |= mem[indirectAddr + 2] << 16;
@@ -460,9 +460,9 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case AbsoluteLong:
 
 			// Just loads the addr into the EA
-			effectiveAddress |= mem[*pc++];
-			effectiveAddress |= mem[*pc++] << 8;
-			effectiveAddress |= mem[*pc++] << 16;
+			effectiveAddress |= mem[(*pc)++];
+			effectiveAddress |= mem[(*pc)++] << 8;
+			effectiveAddress |= mem[(*pc)++] << 16;
 			break;
 
 		/*
@@ -475,9 +475,9 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case AbsoluteLongIndexedWithX:
 
 			// Just loads the addr into the EA
-			effectiveAddress |= mem[*pc++];
-			effectiveAddress |= mem[*pc++] << 8;
-			effectiveAddress |= mem[*pc++] << 16;
+			effectiveAddress |= mem[(*pc)++];
+			effectiveAddress |= mem[(*pc)++] << 8;
+			effectiveAddress |= mem[(*pc)++] << 16;
 
 			// Adds the X register to the effective addr 
 			effectiveAddress += (cpu->X) & mask;
@@ -523,9 +523,9 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 * high byte of the Y register is 0ed out for this purpose.
 		 */
 		case BlockMove:
-			effectiveAddress |= (uint64_t)mem[*pc++] << 40;
+			effectiveAddress |= (uint64_t)mem[(*pc)++] << 40;
 			effectiveAddress |= (uint16_t)(cpu->X & mask) << 24;
-			effectiveAddress |= mem[*pc++] << 16;
+			effectiveAddress |= mem[(*pc)++] << 16;
 			effectiveAddress |= (uint16_t)(cpu->Y & mask);
 			break;
 			
@@ -537,7 +537,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case DirectPage:
 
 			// EA starts as 0 so no need to clear high byte
-			effectiveAddress |= mem[*pc++] + cpu->D;
+			effectiveAddress |= mem[(*pc)++] + cpu->D;
 			break;
 
 		/*
@@ -548,7 +548,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 */
 		case DirectPageIndexedWithX:
 		
-			effectiveAddress |= mem[*pc++] + cpu->D + ((cpu->X) & mask);
+			effectiveAddress |= mem[(*pc)++] + cpu->D + ((cpu->X) & mask);
 			break;
 
 		/*
@@ -559,7 +559,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 */
 		case DirectPageIndexedWithY:
 
-			effectiveAddress |= mem[*pc++] + cpu->D + ((cpu->Y) & mask);
+			effectiveAddress |= mem[(*pc)++] + cpu->D + ((cpu->Y) & mask);
 			break;
 
 		/*
@@ -573,7 +573,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case DirectPageIndexedIndirectWithX:
 
 			// indirectAddr starts as 0, no need to clear the high byte
-			indirectAddr = mem[*pc++] + cpu->D + ((cpu->X) & mask);
+			indirectAddr = mem[(*pc)++] + cpu->D + ((cpu->X) & mask);
 
 			// Load the effective addr from memory at the indirect addr
 			effectiveAddress |= cpu->DBR << 16;
@@ -599,7 +599,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case StackDirectPageIndirect:
 
 			// indirectAddr starts as 0, no need to clear the high byte
-			indirectAddr = mem[*pc++] + cpu->D;
+			indirectAddr = mem[(*pc)++] + cpu->D;
 
 			// Load the effective addr from memory at the indirect addr
 			effectiveAddress |= cpu->DBR << 16;
@@ -616,7 +616,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case DirectPageIndirectLong:
 			
 			// indirectAddr starts as 0, no need to clear the high byte
-			indirectAddr = mem[*pc++] + cpu->D;
+			indirectAddr = mem[(*pc)++] + cpu->D;
 
 			// Load the effective addr from memory at the indirect addr
 			effectiveAddress |= mem[indirectAddr + 2] << 16;
@@ -636,7 +636,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case DirectPageIndirectIndexedWithY:
 
 			// indirectAddr starts as 0, no need to clear high byte
-			indirectAddr = mem[*pc++] + cpu->D;
+			indirectAddr = mem[(*pc)++] + cpu->D;
 
 			effectiveAddress |= cpu->DBR << 16;
 
@@ -657,7 +657,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case DirectPageIndirectLongIndexedWithY:
 
 			// indirectAddr starts as 0, no need to clear high byte
-			indirectAddr = mem[*pc++] + cpu->D;
+			indirectAddr = mem[(*pc)++] + cpu->D;
 
 			// Loads the effective addr into the temp
 			tempEffAddr |= mem[indirectAddr + 2] << 16;
@@ -685,7 +685,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case Immediate:
 
 			// In either case, the low byte must be loaded
-			effectiveAddress = mem[*pc++];
+			effectiveAddress = mem[(*pc)++];
 
 			// The REP & SEP instructions always only takes one operand
 			if(opcode == 0xC2 || opcode == 0xE2){
@@ -727,7 +727,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 
 				// If the flag is 0, then we need another operand byte
 				if(!flag){
-					effectiveAddress |= mem[*pc++] << 8;
+					effectiveAddress |= mem[(*pc)++] << 8;
 				}
 			}
 			break;
@@ -737,11 +737,19 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 * The instruction supplies a one byte operand that is a twos compliment
 		 * signed value. It is sign extended to 16 bits and then added to the 
 		 * program counter to result in the EA.
+		 * TODO make this math work correctly
 		 */
 		case ProgramCounterRelative:
-			sign_extension = sign_extend8to16(mem[*pc++]);
+			sign_extension = sign_extend8to16(mem[(*pc)++]);
 			effectiveAddress |= cpu->PBR << 16;
-			effectiveAddress |= sign_extension + *pc;
+			if(sign_extension & 0x8000){
+				sign_extension = ~sign_extension;
+				sign_extension++;
+				effectiveAddress |= *pc - sign_extension;
+			}
+			else{
+				effectiveAddress |= sign_extension + *pc;
+			}
 			break;
 
 		/*
@@ -803,7 +811,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 * stack pointer, in bank 0;
 		 */
 		case StackRelative:
-			effectiveAddress |= mem[*pc++] + cpu->SP;
+			effectiveAddress |= mem[(*pc)++] + cpu->SP;
 			break;
 
 		/*

@@ -58,6 +58,6 @@ struct Registers* initReg();
  *  current state of all the registers of the 65816. This is a debugging tool
  *  mostly.
  */
-void dumpRegisters(struct Registers* reg, FILE *stream);
+void dumpRegisters(struct Registers* reg, uint8_t *mem, FILE *stream);
 
 #endif
