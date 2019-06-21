@@ -23,9 +23,12 @@ int main() {
 	mem[8] = 0x00;
 
 	// Text
-	mem[0x12C] = 0x3A; // DEC A
-	mem[0x12D] = 0xD0; // BNE 
-	mem[0x12E] = 0xFD; // 	-3
+	mem[0x129] = 0xA9; 	// LDA 
+	mem[0x12A] = 0xFF; 	//	0x00FF
+	mem[0x12B] = 0x00;
+	mem[0x12C] = 0x3A; 	// DEC A
+	mem[0x12D] = 0xD0; 	// BNE 
+	mem[0x12E] = 0xFD; 	// 	-3
 	mem[0x12F] = 0x6D;
 	mem[0x130] = 0x07;
 	mem[0x131] = 0x00;
@@ -40,9 +43,8 @@ int main() {
 	//mem[308] = 0x01;
 	
 	
-	cpu->PC = 0x12C;
+	cpu->PC = 0x129;
 	cpu->SP = 0xFFF;
-	cpu->acc.C = 0xF;
 
 	dumpRegisters(cpu, mem, stdout);
 	run(cpu, mem);
@@ -52,9 +54,9 @@ int main() {
 void run(struct Registers *cpu, uint8_t *mem){
 	while(1){
 		instJmpTab[mem[cpu->PC]](cpu, mem);
-		//system("clear");
+		system("clear");
 		dumpRegisters(cpu, mem, stdout);
-		dumpMemory(cpu, mem, 0x0, 0x150, stdout);
-		//getchar();
+		dumpMemory(cpu, mem, 0x0ff0, 0xfff, stdout);
+		getchar();
 	}
 }

@@ -7,37 +7,37 @@
 
 void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     NULL, //&BRK,				// 0x00
-    NULL, //&ORA,				// 0x01
+    &ORA,				// 0x01
     NULL, //&COP,				// 0x02
-    NULL, //&ORA,				// 0x03
+    &ORA,				// 0x03
     NULL, //&TSB,				// 0x04
-    NULL, //&ORA,				// 0x05
+    &ORA,				// 0x05
     &ASL,				// 0x06
-    NULL, //&ORA,				// 0x07
+    &ORA,				// 0x07
     NULL, //&PHP,				// 0x08
-    NULL, //&ORA,				// 0x09
+    &ORA,				// 0x09
     &ASL,				// 0x0A
     NULL, //&PHD,				// 0x0B
     NULL, //&TSB,				// 0x0C
-    NULL, //&ORA,				// 0x0D
+    &ORA,				// 0x0D
     &ASL,				// 0x0E
-    NULL, //&ORA,				// 0x0F
+    &ORA,				// 0x0F
     NULL, //&BPL,				// 0x10
-    NULL, //&ORA,				// 0x11
-    NULL, //&ORA,				// 0x12
-    NULL, //&ORA,				// 0x13
+    &ORA,				// 0x11
+    &ORA,				// 0x12
+    &ORA,				// 0x13
     NULL, //&TRB,				// 0x14
-    NULL, //&ORA,				// 0x15
+    &ORA,				// 0x15
     &ASL,				// 0x16
-    NULL, //&ORA,				// 0x17
+    &ORA,				// 0x17
     &CLC,				// 0x18
-    NULL, //&ORA,				// 0x19
+    &ORA,				// 0x19
     &INC,				// 0x1A
     NULL, //&TCS,				// 0x1B
     NULL, //&TRB,				// 0x1C
-    NULL, //&ORA,				// 0x1D
+    &ORA,				// 0x1D
     &ASL,				// 0x1E
-    NULL, //&ORA,				// 0x1F
+    &ORA,				// 0x1F
     &JSR,				// 0x20
     &AND,				// 0x21
     &JSL,				// 0x22
@@ -71,37 +71,37 @@ void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     NULL, //&ROL,				// 0x3E
     &AND,				// 0x3F
     NULL, //&RTI,				// 0x40
-    NULL, //&EOR,				// 0x41
+    &EOR,				// 0x41
     NULL, //&WDM,				// 0x42
-    NULL, //&EOR,				// 0x43
+    &EOR,				// 0x43
     NULL, //&MVP,				// 0x44
-    NULL, //&EOR,				// 0x45
+    &EOR,				// 0x45
     NULL, //&LSR,				// 0x46
-    NULL, //&EOR,				// 0x47
+    &EOR,				// 0x47
     NULL, //&PHA,				// 0x48
-    NULL, //&EOR,				// 0x49
+    &EOR,				// 0x49
     NULL, //&LSR,				// 0x4A
     NULL, //&PHK,				// 0x4B
     &JMP,				// 0x4C
-    NULL, //&EOR,				// 0x4D
+    &EOR,				// 0x4D
     NULL, //&LSR,				// 0x4E
-    NULL, //&EOR,				// 0x4F
+    &EOR,				// 0x4F
     &BVC,				// 0x50
-    NULL, //&EOR,				// 0x51
-    NULL, //&EOR,				// 0x52
-    NULL, //&EOR,				// 0x53
+    &EOR,				// 0x51
+    &EOR,				// 0x52
+    &EOR,				// 0x53
     NULL, //&MVN,				// 0x54
-    NULL, //&EOR,				// 0x55
+    &EOR,				// 0x55
     NULL, //&LSR,				// 0x56
-    NULL, //&EOR,				// 0x57
+    &EOR,				// 0x57
     &CLI,				// 0x58
-    NULL, //&EOR,				// 0x59
+    &EOR,				// 0x59
     NULL, //&PHY,				// 0x5A
     NULL, //&TCD,				// 0x5B
     &JMP,				// 0x5C
-    NULL, //&EOR,				// 0x5D
+    &EOR,				// 0x5D
     NULL, //&LSR,				// 0x5E
-    NULL, //&EOR,				// 0x5F
+    &EOR,				// 0x5F
     NULL, //&RTS,				// 0x60
     &ADC,				// 0x61
     NULL, //&PER,				// 0x62
@@ -166,38 +166,38 @@ void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     NULL, //&STA,				// 0x9D
     NULL, //&STZ,				// 0x9E
     NULL, //&STA,				// 0x9F
-    NULL, //&LDY,				// 0xA0
-    NULL, //&LDA,				// 0xA1
-    NULL, //&LDX,				// 0xA2
-    NULL, //&LDA,				// 0xA3
-    NULL, //&LDY,				// 0xA4
-    NULL, //&LDA,				// 0xA5
-    NULL, //&LDX,				// 0xA6
-    NULL, //&LDA,				// 0xA7
+    &LDY,				// 0xA0
+    &LDA,				// 0xA1
+    &LDX,				// 0xA2
+    &LDA,				// 0xA3
+    &LDY,				// 0xA4
+    &LDA,				// 0xA5
+    &LDX,				// 0xA6
+    &LDA,				// 0xA7
     NULL, //&TAY,				// 0xA8
-    NULL, //&LDA,				// 0xA9
+    &LDA,				// 0xA9
     NULL, //&TAX,				// 0xAA
     NULL, //&PLB,				// 0xAB
-    NULL, //&LDY,				// 0xAC
-    NULL, //&LDA,				// 0xAD
-    NULL, //&LDX,				// 0xAE
-    NULL, //&LDA,				// 0xAF
+    &LDY,				// 0xAC
+    &LDA,				// 0xAD
+    &LDX,				// 0xAE
+    &LDA,				// 0xAF
     &BCS,				// 0xB0
-    NULL, //&LDA,				// 0xB1
-    NULL, //&LDA,				// 0xB2
-    NULL, //&LDA,				// 0xB3
-    NULL, //&LDY,				// 0xB4
-    NULL, //&LDA,				// 0xB5
-    NULL, //&LDX,				// 0xB6
-    NULL, //&LDA,				// 0xB7
+    &LDA,				// 0xB1
+    &LDA,				// 0xB2
+    &LDA,				// 0xB3
+    &LDY,				// 0xB4
+    &LDA,				// 0xB5
+    &LDX,				// 0xB6
+    &LDA,				// 0xB7
     NULL, //&CLV,				// 0xB8
-    NULL, //&LDA,				// 0xB9
+    &LDA,				// 0xB9
     NULL, //&TSX,				// 0xBA
     NULL, //&TYX,				// 0xBB
-    NULL, //&LDY,				// 0xBC
-    NULL, //&LDA,				// 0xBD
-    NULL, //&LDX,				// 0xBE
-    NULL, //&LDA,				// 0xBF
+    &LDY,				// 0xBC
+    &LDA,				// 0xBD
+    &LDX,				// 0xBE
+    &LDA,				// 0xBF
     &CPY,				// 0xC0
     &CMP,				// 0xC1
     NULL, //&REP,				// 0xC2
@@ -218,7 +218,7 @@ void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     &CMP,				// 0xD1
     &CMP,				// 0xD2
     &CMP,				// 0xD3
-    NULL, //&PEI,				// 0xD4
+    &PEI,				// 0xD4
     &CMP,				// 0xD5
     &DEC,				// 0xD6
     &CMP,				// 0xD7
@@ -240,7 +240,7 @@ void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     NULL, //&SBC,				// 0xE7
     &INX,				// 0xE8
     NULL, //&SBC,				// 0xE9
-    NULL, //&NOP,				// 0xEA
+    &NOP,				// 0xEA
     NULL, //&XBA,				// 0xEB
     &CPX,				// 0xEC
     NULL, //&SBC,				// 0xED
@@ -250,7 +250,7 @@ void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
     NULL, //&SBC,				// 0xF1
     NULL, //&SBC,				// 0xF2
     NULL, //&SBC,				// 0xF3
-    NULL, //&PEA,				// 0xF4
+    &PEA,				// 0xF4
     NULL, //&SBC,				// 0xF5
     &INC,				// 0xF6
     NULL, //&SBC,				// 0xF7
@@ -993,6 +993,33 @@ void INY(struct Registers *cpu, uint8_t *mem){
 	cpu->P->negative = cpu->Y & (0x8000 >> 8*cpu->P->idxWidth) ? 1 : 0;
 }
 
+
+/**
+ * Exclusive ors the operand and the accumulator
+ */
+void EOR(struct Registers *cpu, uint8_t *mem){
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
+	// The procrssor is either in emulation mode or the memwidth is 8 bits
+	if(cpu->P->emulation || cpu->P->memWidth){
+
+		// Perform the and operation
+		cpu->acc.split.A ^= (uint8_t)operand;
+
+		// Set/unset processor flags
+		cpu->P->negative = cpu->acc.split.A & 0x80 ? 1 : 0;
+	}
+
+	// The processor is in native mode and memwidth for the accumulator is 16bit
+	else{
+		cpu->acc.C ^= operand;
+		cpu->P->negative = cpu->acc.C & 0x8000 ? 1 : 0;
+	}
+
+	cpu->P->zero = cpu->acc.split.A ? 0 : 1;
+}
 /**
  * JSL: Jump to subroutine long (inter-bank)
  *
@@ -1030,4 +1057,184 @@ void JSR(struct Registers *cpu, uint8_t *mem){
 	mem[cpu->SP--] = (uint8_t)((cpu->PC - 1) & 0x00FF);
 
 	cpu->PC = (uint16_t)(effAddr & 0x00FFFF);
+}
+
+/**
+ * LDA: Load accumulator from memory (or immediate)
+ *
+ * Flags affected: n_____z_
+ */
+void LDA(struct Registers *cpu, uint8_t *mem){
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
+	// If the mem/acc width is 16bit
+	if(!cpu->P->memWidth){
+		cpu->acc.C = operand;
+		cpu->P->zero = operand ? 0 : 1;
+		cpu->P->negative = operand & 0x8000 ? 1 : 0;
+	}
+
+	// If the mem/acc width is 8bit
+	else{
+		cpu->acc.split.A = (uint8_t)operand;
+		cpu->P->zero = (uint8_t)operand ? 0 : 1;
+		cpu->P->negative = operand & 0x0080 ? 1 : 0;
+	}
+
+}
+
+/**
+ * LDX: Load X register from memory (or immediate)
+ *
+ * Flags affected: n_____z_
+ */
+void LDX(struct Registers *cpu, uint8_t *mem){
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
+	// If the index width is 16bit
+	if(!cpu->P->idxWidth){
+		cpu->X = operand;
+		cpu->P->zero = operand ? 0 : 1;
+		cpu->P->negative = operand & 0x8000 ? 1 : 0;
+	}
+
+	// If the index width is 8bit
+	else{
+		
+		// Clear the lower byte of X
+		cpu->X &= 0xFF00; 
+
+		// Put the lower byte of the operand into the lower byte of X
+		cpu->X |= (uint8_t)operand;
+		cpu->P->zero = (uint8_t)operand ? 0 : 1;
+		cpu->P->negative = operand & 0x0080 ? 1 : 0;
+	}
+
+}
+
+/**
+ * LDY: Load Y register from memory (or immediate)
+ *
+ * Flags affected: n_____z_
+ */
+void LDY(struct Registers *cpu, uint8_t *mem){
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
+	// If the index width is 16bit
+	if(!cpu->P->idxWidth){
+		cpu->Y = operand;
+		cpu->P->zero = operand ? 0 : 1;
+		cpu->P->negative = operand & 0x8000 ? 1 : 0;
+	}
+
+	// If the index width is 8bit
+	else{
+		
+		// Clear the lower byte of Y
+		cpu->Y &= 0xFF00; 
+
+		// Put the lower byte of the operand into the lower byte of Y
+		cpu->Y |= (uint8_t)operand;
+		cpu->P->zero = (uint8_t)operand ? 0 : 1;
+		cpu->P->negative = operand & 0x0080 ? 1 : 0;
+	}
+
+}
+
+/**
+ * Ors the operand and the accumulator
+ */
+void ORA(struct Registers *cpu, uint8_t *mem){
+	enum addrmode mode = modeMap[mem[cpu->PC]];
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	uint16_t operand = mode == Immediate ? (uint16_t)effAddr : (uint16_t)mem[effAddr] | ((uint16_t)mem[effAddr + 1]) << 8;
+
+	// The procrssor is either in emulation mode or the memwidth is 8 bits
+	if(cpu->P->emulation || cpu->P->memWidth){
+
+		// Perform the and operation
+		cpu->acc.split.A |= (uint8_t)operand;
+
+		// Set/unset processor flags
+		cpu->P->negative = cpu->acc.split.A & 0x80 ? 1 : 0;
+	}
+
+	// The processor is in native mode and memwidth for the accumulator is 16bit
+	else{
+		cpu->acc.C |= operand;
+		cpu->P->negative = cpu->acc.C & 0x8000 ? 1 : 0;
+	}
+
+	cpu->P->zero = cpu->acc.split.A ? 0 : 1;
+}
+
+/**
+ * No operation takes plac, program counter is simply incremented
+ */
+void NOP(struct Registers *cpu, uint8_t *mem){
+	cpu->PC++;
+	(void)mem;
+}
+
+/**
+ * PEA: Push Effective Absolute Address
+ *
+ * Pushes the 16 bit operand onto the stack, regardless of the m and x flags.
+ */
+void PEA(struct Registers *cpu, uint8_t *mem){
+	uint16_t effAddr = (uint16_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	mem[cpu->SP--] = (uint8_t)(effAddr >> 8);
+	mem[cpu->SP--] = (uint8_t)effAddr;
+}
+
+/**
+ * PEI: Push effective Indirect Address
+ *
+ * Pushes the 16 bit value located at the address formed by adding the one byte
+ * operand to the direct page register.
+ */
+void PEI(struct Registers *cpu, uint8_t *mem){
+	uint32_t effAddr = (uint32_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+
+	// Pushes the high byte
+	mem[cpu->SP--] = mem[effAddr + 1];
+
+	// Pushes the low byte
+	mem[cpu->SP--] = mem[effAddr];
+}
+
+
+/**
+ * PER: Push Effective PC Relative Indirect Address
+ *
+ * Pushes the sum of the current PC and the 16 bit operand onto the stack
+ */
+void PER(struct Registers *cpu, uint8_t *mem){
+	uint16_t effAddr = (uint16_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	mem[cpu->SP--] = (uint8_t)(effAddr >> 8);
+	mem[cpu->SP--] = (uint8_t)effAddr;
+}
+
+
+/**
+ * PHA: Push Accumulator
+ *
+ * Pushes the accumulator onto the stack. Number of bytes pushed depends on the
+ * mem width flag.
+ */
+void PHA(struct Registers *cpu, uint8_t *mem){
+
+	// The high byte of the accumulator is only pushed when memWidth is 0
+	if(!cpu->P->memWidth){
+		mem[cpu->PC--] = cpu->acc.split.B;
+	}
+
+	// The low byte is always pushed
+	mem[cpu->PC--] = cpu->acc.split.A;
 }

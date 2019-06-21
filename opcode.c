@@ -758,18 +758,18 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		 * get the effective address. 
 		 */
 		case ProgramCounterRelativeLong:
+
+
+		/*
+		 * Identical to ProgramCounterRelativeLong, just used for PER
+		 */
+		case StackProgramCounterRelativeLong:
 			sign_extension |= mem[*pc++];
 			sign_extension |= mem[*pc++] << 8;
 			effectiveAddress |= cpu->PBR << 16;
 			effectiveAddress |= sign_extension + *pc;
 			break;
 
-		/*
-		 * TODO: to implement this, the way the program counter works must be
-		 * redone.
-		 */
-		case StackProgramCounterRelativeLong:
-			break;
 
 		/*
 		 * For instructions whose EA is just the stack pointer. Remember that

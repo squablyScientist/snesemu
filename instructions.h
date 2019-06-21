@@ -30,7 +30,15 @@ void DEY(struct Registers *cpu, uint8_t *mem);
 void INC(struct Registers *cpu, uint8_t *mem);
 void INX(struct Registers *cpu, uint8_t *mem);
 void INY(struct Registers *cpu, uint8_t *mem);
+void EOR(struct Registers *cpu, uint8_t *mem);
 void JSL(struct Registers *cpu, uint8_t *mem);
 void JSR(struct Registers *cpu, uint8_t *mem);
+void LDA(struct Registers *cpu, uint8_t *mem);
+void LDX(struct Registers *cpu, uint8_t *mem);
+void LDY(struct Registers *cpu, uint8_t *mem);
+void NOP(struct Registers *cpu, uint8_t *mem);
+void ORA(struct Registers *cpu, uint8_t *mem);
+void PEA(struct Registers *cpu, uint8_t *mem);
+void PEI(struct Registers *cpu, uint8_t *mem);
 
 #endif
