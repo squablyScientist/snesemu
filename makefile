@@ -1,10 +1,20 @@
 CC = gcc
-OBJECTS = cpu.o status.o main.o instructions.o opcode.o mneumonics.o
-TARGET = cpu
-CFLAGS = -pedantic -Wall -Wextra -Werror -ggdb
 
-default: $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(TARGET) $(CFLAGS)
+OBJ_DIR = obj
+SRC_DIR = src
+INC_DIR = include
+
+_OBJ = cpu.o status.o main.o instructions.o opcode.o mneumonics.o
+OBJ = $(addprefix $(OBJ_DIR)/, $(_OBJ)) 
+
+TARGET = cpu
+CFLAGS = -pedantic -Wall -Wextra -Werror -ggdb -I$(INC_DIR)
+
+$(TARGET): $(OBJ)
+	$(CC) $^ -o $@ $(CFLAGS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -c $^ -o $@ $(CFLAGS) 
 
 clean: 
-	rm $(OBJECTS) $(TARGET)
+	rm $(OBJ) $(TARGET)

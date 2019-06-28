@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "cpu.h"
-#include "status.h"
-#include "mneumonics.h"
+#include <cpu.h>
+#include <status.h>
+#include <mneumonics.h>
 
 
 struct Registers* initReg() {

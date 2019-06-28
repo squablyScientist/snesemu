@@ -5,7 +5,7 @@
 cpu
 
 # Generated binary files from compilation process
-*.o
+obj
 
 #ctags
 tags
