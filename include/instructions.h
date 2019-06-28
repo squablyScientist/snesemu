@@ -40,5 +40,6 @@ void NOP(struct Registers *cpu, uint8_t *mem);
 void ORA(struct Registers *cpu, uint8_t *mem);
 void PEA(struct Registers *cpu, uint8_t *mem);
 void PEI(struct Registers *cpu, uint8_t *mem);
+void BRK(struct Registers *cpu, uint8_t *mem);
 
 #endif

@@ -1,0 +1,7 @@
+Some things to do:
+
+- Finish up adding all the instructions (duh)
+- Add a nice ncurses display of the cpu status and mem
+- Start work on the ppu
+- Figure out how the memory map works
+- All the various TODOs littered throughout the code

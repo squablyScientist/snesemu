@@ -6,7 +6,7 @@
 // to bank 0
 
 void (*instJmpTab[])(struct Registers *cpu, uint8_t *mem) = {
-    NULL, //&BRK,				// 0x00
+	&BRK,				// 0x00
     &ORA,				// 0x01
     NULL, //&COP,				// 0x02
     &ORA,				// 0x03
@@ -1237,4 +1237,52 @@ void PHA(struct Registers *cpu, uint8_t *mem){
 
 	// The low byte is always pushed
 	mem[cpu->PC--] = cpu->acc.split.A;
+}
+
+/**
+ * BRK:	Force a software interrupt
+ *
+ * (in native mode):
+ * The program counter is incremented by 2 (despite being a single byte
+ * instruction. This is to allow for an optional one-byte signature following
+ * the BRK instruction to let the interrupt handler know what caused the BRK. If
+ * one chooses not to use this feature, then that byte must be padded w/ some
+ * garbage value, or the interrupt handler must decrement the PC that was pushed
+ * by this instruction by one so that RTI(return from interrupt) can execute
+ * correctly)
+ *
+ * Pushes the following values onto the stack in order of appearance:
+ * 	Program Bank Register
+ * 	Program Counter High Byte (after it has been incremented by 2)
+ * 	Program Counter Low Byte  (after it has been incremented by 2)
+ * 	Status Register
+ *
+ * After these stack modifications, the program bank register is set to 0, and
+ * the PC takes on the appropriate interrupt handler stored in the break vector.
+ * (see documentation for getEffectiveAddress's interrupt case for more info)
+ *
+ * The processor status register is also affected: d is cleared, and i is set to
+ * prevent any hardware IRQ interrupts while we are in a software interrupt.
+ */
+void BRK(struct Registers *cpu, uint8_t *mem){
+	uint16_t effAddr = (uint16_t)getEffectiveAddress(cpu, mem[cpu->PC++], mem);
+	
+	// Account for optional one-byte BRK signature
+	cpu->PC++;
+
+	mem[cpu->SP++] = cpu->PBR;
+	mem[cpu->SP++] = (uint8_t)(cpu->PC >> 8);
+	mem[cpu->SP++] = (uint8_t)(cpu->PC);
+	mem[cpu->SP++] = getProcessorStatus(cpu->P);
+
+	// set i to disable IRQ interrupts
+	cpu->P->irqDisable = 1;
+
+	// clear d to disable decimal mode
+	cpu->P->deciMode = 0;
+
+	// goto bank 0
+	cpu->PBR = 0;
+
+	cpu->PC = effAddr;
 }

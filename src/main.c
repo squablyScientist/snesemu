@@ -8,6 +8,9 @@ void run(struct Registers *cpu, uint8_t *mem);
 int main() {
 	struct Registers* cpu = initReg();
 	uint8_t* mem = malloc(16777216);
+
+
+	// Turn off emulation mode for conveinience while developing
 	cpu->P->emulation=0;
 
 

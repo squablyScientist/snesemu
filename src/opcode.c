@@ -697,7 +697,7 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 			if(!cpu->P->emulation){
 
 				// The flag that will be checked
-				uint8_t flag;
+				uint8_t flag = 0;
 				switch(opcode){
 					
 					// Instructions that look at the memory width flag
@@ -823,7 +823,23 @@ uint64_t getEffectiveAddress(Registers* cpu, uint8_t opcode, uint8_t* mem)
 		case Implied:
 			break;
 
+
+		/*
+		 * An interrupt occured, so the PC must be set to an address in the
+		 * break vector(e.g in the case of BRK (in native mode), EA would be set
+		 * to the bytes at $00FFE6-$00FFE7).
+		 */
 		case Interrupt:
+			switch(opcode){
+				case 0x00: //BRK
+					// TODO check to see if we're in native mode or not?
+					effectiveAddress |= mem[0x00FFE6];
+					effectiveAddress |= mem[0x00FFE7] << 8;
+					break;
+				default:
+					//TODO implement the rest of interrupt addrs instructions
+					break;
+			}
 			break;
 	}
 
